@@ -18,7 +18,7 @@ WORKDIR /app
 
 # Copy the JAR file from the build stage
 # Assuming the JAR file is located in the target directory after Maven build
-COPY --from=build /app/target/employee-management-system.jar /app/employee-management-system.jar
+COPY --from=build /app/target/employee-management-system-*.jar /app/employee-management-system.jar
 
 # Expose the port on which the Spring Boot app will run
 EXPOSE 8080
