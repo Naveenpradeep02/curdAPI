@@ -1,26 +1,26 @@
-# Use a base image with Maven and JDK 17 for building the app
+# Use a base image with JDK 17 (or your preferred version)
 FROM maven:3.8.5-openjdk-17 AS build
 
-# Copy the project files into the container
-COPY . /app
-
-# Set the working directory in the container
+# Set the working directory in the build stage
 WORKDIR /app
 
-# Build the Spring Boot application without running tests
+# Copy the entire project into the container
+COPY . .
+
+# Build the project (skip tests for now)
 RUN mvn clean package -DskipTests
 
-# Use OpenJDK 11 as the base image for running the application
+# Use a lighter base image with JRE for running the app
 FROM openjdk:11-jre-slim
 
-# Set the working directory for the application
+# Set the working directory for the runtime stage
 WORKDIR /app
 
-# Copy the built JAR file from the build stage to the current working directory
+# Copy the JAR file built by Maven from the build stage
 COPY --from=build /app/target/employee-management-system.jar /app/employee-management-system.jar
 
-# Expose the port the app will run on (default for Spring Boot is 8080)
+# Expose port 8080 to allow access to the application
 EXPOSE 8080
 
-# Run the application using the JAR file
-CMD ["java", "-jar", "employee-management-system.jar"]
+# Run the Spring Boot application
+CMD ["java", "-jar", "/app/employee-management-system.jar"]
