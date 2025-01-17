@@ -16,7 +16,7 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Copy the JAR file built by Maven into the container
-COPY --from=build /app/target/employee-management-system.jar /app/employee-management-system.jar
+COPY --from=build /app/target/employee-management-system.jar 
 
 # Expose the port the app will run on (default for Spring Boot is 8080)
 EXPOSE 8080
