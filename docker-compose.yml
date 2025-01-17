@@ -1,20 +1,20 @@
-#version: '3'
-#services:
-#  app:
-#    image: employee-management-system
-#    ports:
-#      - "8080:8080"
-#    environment:
-#      DB_URL: jdbc:mysql://mysql:3306/employee_management_system
-#      DB_USERNAME: root
-#      DB_PASSWORD: Naveen@143
-#    depends_on:
-#      - mysql
-#
-#  mysql:
-#    image: mysql:8
-#    environment:
-#      MYSQL_ROOT_PASSWORD: Naveen@143
-#      MYSQL_DATABASE: employee_management_system
-#    ports:
-#      - "3306:3306"
+version: '3'
+services:
+  app:
+    image: employee-management-system
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/employee_management_system
+      DB_USERNAME: root
+      DB_PASSWORD: Naveen@143
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: Naveen@143
+      MYSQL_DATABASE: employee_management_system
+    ports:
+      - "3306:3306"
