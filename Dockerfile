@@ -1,29 +1,14 @@
-# Use a base image with JDK 17 for the build stage
-FROM maven:3.8.5-openjdk-17 AS build
+# Use a lightweight Java runtime as the base image
+FROM openjdk:17-jdk-slim
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the entire project to the /app directory in the container
-COPY . .
+# Copy the JAR file to the container
+COPY target/springboot-backend-0.0.1-SNAPSHOT.jar app.jar
 
-# Run Maven build to create the JAR file
-RUN mvn clean package -DskipTests
-
-# Start a new stage with OpenJDK 11 runtime image
-FROM openjdk:11-jre-slim
-
-# Set the working directory in the final image
-WORKDIR /app
-
-# Copy the JAR file from the build stage
-COPY --from=build /app/target/employee-management-system-*.jar /app/employee-management-system.jar
-
-# Debugging: List files to verify the JAR is present
-RUN ls -l /app/
-
-# Expose the port on which the Spring Boot app will run
+# Expose the port that the application listens on
 EXPOSE 8080
 
-# Command to run the Spring Boot app
-CMD ["java", "-jar", "employee-management-system.jar"]
+# Command to run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
