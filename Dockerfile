@@ -17,8 +17,10 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Copy the JAR file from the build stage
-# Assuming the JAR file is located in the target directory after Maven build
 COPY --from=build /app/target/employee-management-system-*.jar /app/employee-management-system.jar
+
+# Debugging: List files to verify the JAR is present
+RUN ls -l /app/
 
 # Expose the port on which the Spring Boot app will run
 EXPOSE 8080
