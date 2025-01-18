@@ -1,0 +1,11 @@
+# Exported from Render on 2025-01-18T04:42:56Z
+services:
+- type: web
+  name: curd-systems
+  runtime: docker
+  repo: https://github.com/Naveenpradeep02/curdAPI
+  plan: free
+  region: oregon
+  dockerContext: .
+  dockerfilePath: ./Dockerfile
+version: "1"
